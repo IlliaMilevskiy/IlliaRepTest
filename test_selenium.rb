@@ -30,5 +30,14 @@ driver.find_element(:xpath,".//*[@id='content']/div[1]/a[1]").click
 driver.find_element(id: 'project_name').send_keys 'illiatestProname7'
 driver.find_element(name: 'commit').click
 
+driver.find_element(id: 'project_quick_jump_box').click
+driver.find_element(:xpath,".//*[@id='project_quick_jump_box']/option[3]").click
+driver.find_element(class: 'settings').click
+driver.find_element(id: 'tab-members').click
+driver.find_element(id: 'principal_search').click
+
+
+driver.find_element(class: 'projects').click
+driver.find_element(name: 'commit').click
 fail 'Expected message did not meet' unless driver.find_element(id: 'flash_notice').text == 'Your account has been activated. You can now log in.asdf'
 
