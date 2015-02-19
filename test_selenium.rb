@@ -4,40 +4,66 @@ driver = Selenium::WebDriver.for :firefox
 driver.get 'http://demo.redmine.org'
 
 driver.find_element(class: 'register').click
-driver.find_element(id: 'user_login').send_keys 'IlliaTestLogin7'
-driver.find_element(id: 'user_password').send_keys 'IlliaTestPassword7'
-driver.find_element(id: 'user_password_confirmation').send_keys 'IlliaTestPassword7'
-driver.find_element(id: 'user_firstname').send_keys 'qwerqwer7'
-driver.find_element(id: 'user_lastname').send_keys 'qwerqwer7'
-driver.find_element(id: 'user_mail').send_keys 'qwerqwe234r@wq8er.we'
+driver.find_element(id: 'user_login').send_keys 'IlliaTestLogin12'
+driver.find_element(id: 'user_password').send_keys 'IlliaTestPassword12'
+driver.find_element(id: 'user_password_confirmation').send_keys 'IlliaTestPassword12'
+driver.find_element(id: 'user_firstname').send_keys 'qwerqwer12'
+driver.find_element(id: 'user_lastname').send_keys 'qwerqwer12'
+driver.find_element(id: 'user_mail').send_keys 'qwerqwe234r@wq13er.we'
 driver.find_element(name: 'commit').click
 
 driver.find_element(class: 'logout').click
 driver.find_element(class: 'login').click
-driver.find_element(id: 'username').send_keys 'IlliaTestLogin7'
-driver.find_element(id: 'password').send_keys 'IlliaTestPassword7'
+driver.find_element(id: 'username').send_keys 'IlliaTestLogin12'
+driver.find_element(id: 'password').send_keys 'IlliaTestPassword12'
 driver.find_element(name: 'login').click
 
 driver.find_element(class: 'my-account').click
 driver.find_element(:xpath,".//*[@id='content']/div[1]/a").click
-driver.find_element(id: 'password').send_keys 'IlliaTestPassword7'
+driver.find_element(id: 'password').send_keys 'IlliaTestPassword12'
 driver.find_element(id: 'new_password').send_keys '123asdQ'
 driver.find_element(id: 'new_password_confirmation').send_keys '123asdQ'
 driver.find_element(name: 'commit').click
 
+#add member
 driver.find_element(class: 'projects').click
 driver.find_element(:xpath,".//*[@id='content']/div[1]/a[1]").click
-driver.find_element(id: 'project_name').send_keys 'illiatestProname7'
+driver.find_element(id: 'project_name').send_keys 'illiatestProname12'
 driver.find_element(name: 'commit').click
-
-driver.find_element(id: 'project_quick_jump_box').click
-driver.find_element(:xpath,".//*[@id='project_quick_jump_box']/option[3]").click
-driver.find_element(class: 'settings').click
 driver.find_element(id: 'tab-members').click
-driver.find_element(id: 'principal_search').click
+driver.find_element(:xpath,".//*[@id='principal_search']").click
+sleep 2
+driver.find_element(:xpath,".//*[@id='principal_search']").send_keys 'qwerqwer6'
+sleep 2
+driver.find_element(:xpath,".//*[@id='principals']/label/input").click
+sleep 2
+driver.find_element(:xpath,".//*[@id='new_membership']/fieldset/p[2]/label[1]/input").click
+driver.find_element(id: 'member-add-submit').click
 
 
-driver.find_element(class: 'projects').click
+# edit member
+driver.find_element(:xpath,".//*[@id='member-90870']/td[3]/a[1]").click
+driver.find_element(:xpath,".//*[@id='member-90870-roles-form']/p[1]/label[3]/input").click
+driver.find_element(:xpath,".//*[@id='member-90870-roles-form']/p[2]/input").click
+
+#add version
+driver.find_element(id: 'tab-versions').click
+driver.find_element(:xpath,".//*[@id='tab-content-versions']/p[2]/a").click
+driver.find_element(id: 'version_name').send_keys 'NewTestVersion'
+driver.find_element(:xpath,".//*[@id='new_version']/input").click
+
+#3 types of issue
+driver.find_element(id: 'tab-categories').click
+driver.find_element(:xpath,".//*[@id='tab-content-categories']/p[2]/a").click
+driver.find_element(id: 'issue_category_name').send_keys '1issue'
 driver.find_element(name: 'commit').click
-fail 'Expected message did not meet' unless driver.find_element(id: 'flash_notice').text == 'Your account has been activated. You can now log in.asdf'
+driver.find_element(:xpath,".//*[@id='tab-content-categories']/p[2]/a").click
+driver.find_element(id: 'issue_category_name').send_keys '2issue'
+driver.find_element(name: 'commit').click
+driver.find_element(:xpath,".//*[@id='tab-content-categories']/p[2]/a").click
+driver.find_element(id: 'issue_category_name').send_keys '3issue'
+driver.find_element(name: 'commit').click
 
+fail 'Expected message did not meet' unless driver.find_element(:xpath,".//*[@id='tab-content-categories']/table/tbody/tr[3]/td[1]").text == '1issue'
+fail 'Expected message did not meet' unless driver.find_element(:xpath,".//*[@id='tab-content-categories']/table/tbody/tr[1]/td[1]").text == '2issue'
+fail 'Expected message did not meet' unless driver.find_element(:xpath,".//*[@id='tab-content-categories']/table/tbody/tr[2]/td[1]").text == '3issue'
